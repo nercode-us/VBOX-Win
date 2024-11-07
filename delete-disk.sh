@@ -1,5 +1,5 @@
 #!/bin/bash
-# To run this script on Windows you need Msys2 https://www.msys2.org/
+# To run this script on Windows you need MSYS2 https://www.msys2.org/
 #
 cd /c/Program\ Files/Oracle/VirtualBox
 ./vboxmanage list hdds | tr -s '\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' \
