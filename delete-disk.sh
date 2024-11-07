@@ -1,12 +1,17 @@
 # echo -e "./delete-disk.sh <UUID> <disk_name>"
 cd /c/Program\ Files/Oracle/VirtualBox
 ./vboxmanage list hdds | tr -s '\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' \
-| tr -s '\n' ' ' | sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' | grep -n '' | awk '{print $2,$1,$3,$4,$5,$6}' 
+| tr -s '\n' ' ' | sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' \
+| grep -n '' | awk '{print $2,$1,$3,$4,$5,$6}' 
 echo -e "Select drive to delete or close [CTRL+C]:"
 read num
-disk=`./vboxmanage list hdds | tr -s '\\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' | tr -s '\n' ' ' | sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' | grep -n '' | awk '{print $2,$1,$3,$4,$5,$6}' | grep "\* $num\:" | awk '{print $4}'`
+disk=`./vboxmanage list hdds | tr -s '\\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' | tr -s '\n' ' ' \
+| sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' | grep -n '' \
+| awk '{print $2,$1,$3,$4,$5,$6}' | grep "\* $num\:" | awk '{print $4}'`
 echo "Disk: "$disk
-id=`./vboxmanage list hdds | tr -s '\\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' | tr -s '\n' ' ' | sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' | grep -n '' | awk '{print $2,$1,$3,$4,$5,$6}' | grep "\* $num\:" | awk '{print $3}'`
+id=`./vboxmanage list hdds | tr -s '\\\' '\n' | grep -e 'UUID' -e 'Capacity' -e '\.vdi' | grep -v 'Parent UUID' | tr -s '\n' ' ' \
+| sed 's/UUID/\nUUID/g' | awk '{print $1,$2,$3,$5,$6}' | grep '\.vdi' | awk '{print $1,$2,$3,$4,$5}' | sed 's/UUID:/ */g' | grep -n '' \
+| awk '{print $2,$1,$3,$4,$5,$6}' | grep "\* $num\:" | awk '{print $3}'`
 echo "Disk ID: "$id
 echo -n "Press [ENTER] to delete: "
 read
