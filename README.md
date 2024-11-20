@@ -1,3 +1,5 @@
+https://packages.gentoo.org/packages/app-emulation/virtualbox-guest-additions
+###
 https://packages.gentoo.org/packages/app-emulation/virtualbox
 ###
 https://download.virtualbox.org/virtualbox/LATEST-STABLE.TXT
